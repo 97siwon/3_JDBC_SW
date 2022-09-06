@@ -75,7 +75,7 @@ public class JDBCExample {
 			// 메모리에 로드된 JDBC를 이용해서 
 			// Connection 객체를 만드는 역할
 			
-			conn = DriverManager.getConnection(type + ip + port + sid,    user, pw);
+			conn = DriverManager.getConnection(type + ip + port + sid, user, pw);
 			// SQLException : DB관련 최상위 예외
 			
 			// 중간 확인
