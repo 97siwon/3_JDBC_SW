@@ -33,6 +33,9 @@ public class EmployeeView {
 				System.out.println("6. 입력 받은 부서와 일치 모든 사원 정보 조회");
 				System.out.println("7. 입력 받은 급여 이상을 받는 모든 사원 정보 조회");
 				System.out.println("8. 부서별 급여 합 전체 조회");
+			
+				System.out.println("9. 주민등록번호가 일치하는 사원 정보 조회");
+			
 				System.out.println("0. 프로그램 종료");
 				
 				System.out.print("메뉴 선택 >> ");
@@ -45,7 +48,7 @@ public class EmployeeView {
 				break;
 				case 2: selectAll();
 				break;
-				case 3: 
+				case 3: selectEmpId();
 				break;
 				case 4: 
 				break;
@@ -56,6 +59,8 @@ public class EmployeeView {
 				case 7:
 				break;
 				case 8:
+				break;
+				case 9: selectEmpNo();
 				break;
 				case 0: System.out.println("프로그램을 종료합니다...");
 				break;
@@ -115,13 +120,80 @@ public class EmployeeView {
 	                   emp.getPhone(), emp.getDepartmentTitle(), emp.getJobName(), emp.getSalary());
 	          }
 	       }
-		
 	}
 	
 	
+	/**
+	 * 사번이 일치하는 사원 정보 조회
+	 */
+	public void selectEmpId() {
+		System.out.println("<사원이 일치하는 사원 정보 조회>");
+		
+		// 사번 입력 받기
+		int empId = inputEmpId();
+		
+		
+		// 입력 받은 사번을 DAO의 selectEmpId() 메서드로 전달하여
+		// 조회된 사원 정보 반환하기
+		Employee emp = dao.selectEmpId(empId);
+		
+		printOne(emp); // 조회 결과 출력
+	
+	}
+	
+	/** 사번을 입력 받아 반환하는 메서드
+	 * @return
+	 */
+	public int inputEmpId() {
+		System.out.print("사번 입력 : ");
+		int empId = sc.nextInt();
+		sc.nextLine(); // 버퍼에 남은 개행 문자 제거
+		
+		return empId;
+	
+	}
+	
+	/** 사원 1명 정보 출력
+	 * @param emp
+	 */
+	public void printOne(Employee emp) {
+		
+	      if(emp == null) {
+	          System.out.println("조회된 사원 정보가 없습니다.");
+	          
+	       } else {
+	    	   
+	          System.out.println("사번 |   이름  | 주민 등록 번호 |        이메일        |   전화 번호   | 부서 | 직책 | 급여" );
+	          System.out.println("------------------------------------------------------------------------------------------------");
+	         
+	          
+	          System.out.printf(" %2d  | %4s | %s | %20s | %s | %s | %s | %d\n",
+                   emp.getEmpId(), emp.getEmpName(), emp.getEmpNo(), emp.getEmail(), 
+                   emp.getPhone(), emp.getDepartmentTitle(), emp.getJobName(), emp.getSalary());
+	          
+	       }
+		
+	
+	}
 	
 	
-	
-	
+	/**
+	 * 주민등록번호가 일치하는 사원 정보 조회
+	 */
+	public void selectEmpNo() {
+		System.out.println("<주민등록번호가 일치하는 사원 정보 조회>");
+		
+		System.out.print("주민등록번호 조회 : ");
+		String empNo = sc.next();
+		
+		Employee emp = dao.selectEmpNo(empNo);
+		
+		printOne(emp);
+		
+		
+		
+		
+		
+	}
 	
 }
