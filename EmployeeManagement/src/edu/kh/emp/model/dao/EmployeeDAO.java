@@ -241,11 +241,36 @@ public class EmployeeDAO {
 			// -> 실수로 SQL을 매개변수에 추가하면
 			//    ?에 작성 추가했던 값이 모두 사라져 수행 시 오류 발생
 			
+			if(rs.next()) {
+				int empId = rs.getInt("EMP_ID"); 
+				String empName = rs.getString("EMP_NAME");
+//				String empNo = rs.getString("EMP_NO"); // 전달 받은 파라미터와 같은 값이므로 불필요
+				String email = rs.getString("EMAIL");
+				String phone = rs.getString("PHONE");
+				String departmentTitle = rs.getString("DEPT_TITLE");
+				String jobName = rs.getString("JOB_NAME");
+				int salary = rs.getInt("SALARY");
+				
+				// 조회 결과를 담은 Employee 객체 생성 후 
+				// 결과 저장용 변수 emp에 대입
+				emp = new Employee(empId, empName, empNo, email,
+						phone, departmentTitle, jobName, salary);
+			}
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			
 		} finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 		
