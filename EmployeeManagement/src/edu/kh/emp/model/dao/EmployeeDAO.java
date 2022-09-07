@@ -356,8 +356,99 @@ public class EmployeeDAO {
 		
 	    // 결과 반환
 		return result;
-	}	
+	}
+
+
+	/** 사번이 일치하는 사원 정보 수정 DAO
+	 * @param emp
+	 * @return result
+	 */
+	public int updateEmployee(Employee emp) {
+		int result = 0; // 결과 저장용 변수
+				
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			conn.setAutoCommit(false); // AutoCommit 비활성화
+			
+			String sql = "UPDATE EMPLOYEE SET"
+					+ " EMAIL = ?, PHONE = ? , SALARY = ? "
+					+ " WHERE EMP_ID = ?";
+			
+			// PreparedStatement 생성
+			pstmt = conn.prepareStatement(sql);
+					
+			// ?에 알맞은 값을 세팅
+			pstmt.setString(1, emp.getEmail());
+			pstmt.setString(2, emp.getPhone());
+			pstmt.setInt(3, emp.getSalary());
+			pstmt.setInt(4, emp.getEmpId());
+			
+			result = pstmt.executeUpdate(); // 반영된 행의 개수 반환
+			
+			// 트랜잭션 제어 처리
+			if(result == 0) conn.rollback();
+			else            conn.commit();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null ) pstmt.close();
+				if( conn != null ) conn.close();			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result; // 결과 반환
+	}
+
+
+	/** 사번이 일치하는 사원 정보 삭제
+	 * @param emp
+	 * @return result
+	 */
+	public int deleteEmployee(int empId) {
+		int result = 0;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			conn.setAutoCommit(false); // AutoCommit 비활성화
+			
+			// SQL 작성
+			String sql = "DELETE"
+					+ " FROM EMPLOYEE"
+					+ " WHERE EMP_ID = ?";
+			                      // placeholder
+
+			// PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			
+			// ?에 알맞은 값 대입
+			pstmt.setInt(1, empId);
+			
+			result = pstmt.executeUpdate(); // 반영된 행의 개수 반환
+			
+			// 트랜잭션 제어 처리
+			if(result == 0) conn.rollback();
+			else            conn.commit();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null ) pstmt.close();
+				if( conn != null ) conn.close();			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	
+		return result;
+	}
 	
 	
 	
