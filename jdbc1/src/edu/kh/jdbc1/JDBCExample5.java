@@ -58,7 +58,7 @@ public class JDBCExample5 {
 				
 				emp.setEmpName( rs.getString("이름") ); // 조회 시 컬럼명이 "이름"
 				emp.setHireDate( rs.getString("입사일") ); // 조회 시 컬럼명이 "입사일" 
-				//현재 행의 "입사일" 컬럼의 문자열 값을 얻어와
+				// 현재 행의 "입사일" 컬럼의 문자열 값을 얻어와
 				// emp 가 참조하는 객체의 hireDate 필드에 세팅
 				
 				emp.setGender(rs.getString("성별").charAt(0));
