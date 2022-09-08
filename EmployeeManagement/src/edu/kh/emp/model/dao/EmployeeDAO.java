@@ -456,7 +456,7 @@ public class EmployeeDAO {
 
 	/** 입력 받은 부서와 일치하는 모든 사원 정보 조회
 	 * @param departmentTitle
-	 * @return
+	 * @return empList
 	 */
 	public List<Employee> selectDeptEmp(String departmentTitle) {
 		List<Employee> empList = new ArrayList<>();
@@ -518,7 +518,7 @@ public class EmployeeDAO {
 
 	/** 입력 받은 급여 이상을 받는 모든 사원 정보 조회
 	 * @param salary
-	 * @return
+	 * @return empList
 	 */
 	public List<Employee> selectSalaryEmp(int salary) {
 		List<Employee> empList = new ArrayList<>(); 
@@ -577,7 +577,7 @@ public class EmployeeDAO {
 
 
 	/** 부서별 급여 합 전체 조회
-	 * @return
+	 * @return map
 	 */
 	public HashMap<String,Integer> selectDeptTotalSalary() {
 //		HashMap<String, Integer> map = new HashMap<>();
@@ -625,7 +625,7 @@ public class EmployeeDAO {
 
 
 	/** 직급별 급여 평균 조회
-	 * @return
+	 * @return map
 	 */
 	public HashMap<String, Double> selectJobAvgSalary() {
 		
