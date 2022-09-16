@@ -29,7 +29,7 @@ public class TestService {
 	private TestDAO dao = new TestDAO();
 	
 	
-	/** 1행 삽입 서비스
+	/* 1행 삽입 서비스
 	 * @param vo1
 	 * @return result
 	 */
@@ -105,7 +105,4 @@ public class TestService {
 
 		return res; // insert 3회 결과 반환
 	} 
-	
-	
-	
 }
