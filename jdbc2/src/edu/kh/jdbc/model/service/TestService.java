@@ -1,6 +1,12 @@
 package edu.kh.jdbc.model.service;
 
+// import static 구문
+// -> static이 붙은 필드, 메서드를 호출할 때
+//    클래스명을 생략할 수 있게하는 구문
+import static edu.kh.jdbc.common.JDBCTemplate.*;
+
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import edu.kh.jdbc.common.JDBCTemplate;
 import edu.kh.jdbc.model.dao.TestDAO;
@@ -27,10 +33,10 @@ public class TestService {
 	 * @param vo1
 	 * @return result
 	 */
-	public int insert(TestVO vo1) {
+	public int insert(TestVO vo1) throws SQLException {
 		
 		// 커넥션 생성
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		                  // 클래스명.메서드명
 		
 		// INSERT DAO 메서드를 호출하여 수행 후 결과 반환 받기 
@@ -39,15 +45,66 @@ public class TestService {
 		// result == SQL 수행 후 반영된 결과 행의 개수
 		
 		// 트랜잭션 제어
-		if(result > 0) JDBCTemplate.commit(conn);
-		else           JDBCTemplate.rollback(conn);
+		if(result > 0) commit(conn);
+		else           rollback(conn);
 		
 		// 커넥션 반환(close 구문) 
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		// 결과 반환
 		return result;
 	}
+
+
+	/** 3행 삽입 서비스
+	 * @param vo1
+	 * @param vo2
+	 * @param vo3
+	 * @return
+	 */
+	public int insert(TestVO vo1, TestVO vo2, TestVO vo3) throws Exception {
+		// throws Exception
+		// -> 아래 catch문에서 강제 발생된 예외를
+		//    호출부로 던진다는 구문
+		
+		// 왜 예외를 강제 발생 시켰는가?
+		// -> Run에서 예외 상황에 대한 다른 결과를 출력하기 위해서
+		
+		// 1. Connection 생성 (무조건 1번!)
+		Connection conn = getConnection();
+		
+		int res = 0; // insert 3회 모두 성공 시 1 / 아니면 0
+		
+		try {
+			// insert 중 오류가 발생하면 모든 insert 내용 rollback
+			// -> try - catch로 예외가 발생했다는 것을 인지함.
+			int result1 = dao.insert(conn, vo1);
+			int result2 = dao.insert(conn, vo2);
+			int result3 = dao.insert(conn, vo3);
+			
+			if(result1 + result2 + result3 == 3) { // 모두 insert 성공한 경우
+				commit(conn);
+				res = 1;
+			}
+			
+		} catch(SQLException e) { // dao 수행 중 예외 발생 시
+			rollback(conn);
+			
+			// -> 실패된 데이터를 DB에 삽입하지 않음
+			// -> DB에는 성공된 데이터만 저장이 된다.
+			//    == DB에 저장된 데이터의 신뢰도가 상승한다.
+			
+			e.printStackTrace();
+			
+			// Run2클래스로 예외를 전달 할 수 있도록 예외 강제 발생
+			throw new Exception("DAO 수행 중 예외 발생");
+			
+		} finally { // 무조건 conn 반환하기
+			close(conn);
+		}
+
+		return res; // insert 3회 결과 반환
+	} 
 	
 	
 	
