@@ -33,7 +33,7 @@ public class Run3 {
 		TestVO vo1 = new TestVO(num, input1, input2);
 		
 		try {
-			int result = service.insert(vo1);
+			int result = service.update(vo);
 			
 			if(result > 0) {
 				System.out.println("수정되었습니다.");
