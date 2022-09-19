@@ -45,7 +45,8 @@ public class MainView {
 					System.out.println();
 
 					switch (input) {
-					case 1: login();
+					case 1:
+						login();
 						break; // 로그인
 					case 2:
 						signUp();
@@ -75,7 +76,7 @@ public class MainView {
 						break;
 					case 0:
 						break;
-					case 99: 
+					case 99:
 						break;
 					default:
 						System.out.println("메뉴에 작성된 번호만 입력해주세요.");
@@ -91,8 +92,6 @@ public class MainView {
 		} while (input != 0);
 
 	}
-
-
 
 	/**
 	 * 회원 가입 화면
@@ -191,8 +190,7 @@ public class MainView {
 		}
 
 	}
-	
-	
+
 	/**
 	 * 로그인 화면
 	 */
@@ -205,15 +203,24 @@ public class MainView {
 		System.out.print("비밀번호 : ");
 		String memberPw = sc.next();
 		
+	
+		try {
+			// 로그인 서비스 호출 후 조회 결과를 loginMember에 저장
+			loginMember = service.login(memberId, memberPw);
+			
+			System.out.println();
+			if(loginMember != null) { // 로그인 성공 시
+				System.out.println(loginMember.getMemberName() + "님 환영합니다.");
+				
+			} else { // 로그인 실패 시
+				System.out.println("[아이디 또는 비밀번호가 일치하지 않습니다.]");
+			}
+			System.out.println();
+		} catch(Exception e) {
+			System.out.println("\n<<로그인 중 예외 발생>>");
+		}
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
