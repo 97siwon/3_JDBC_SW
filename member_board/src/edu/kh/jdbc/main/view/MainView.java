@@ -74,9 +74,17 @@ public class MainView {
 						break;
 					case 2:
 						break;
-					case 0:
+					case 0: // 로그아웃 == loginMember가 참조하는 객체 없음(== null)
+						// 로그인 == loginMember가 참조하는 객체 존재
+						loginMember = null;
+						System.out.println("\n[로그아웃 되었습니다.]\n");
+						
+						input = -1; // do-while문이 종료되지 않도록 0이 아닌 값으로 변경
 						break;
 					case 99:
+						System.out.println("프로그램 종료");
+						input = 0; // -> do-while 조건식을 false로 만듦. 
+						// System.exit(0); // JVM종료, 매개변수는0, 아니면 오류를 의미
 						break;
 					default:
 						System.out.println("메뉴에 작성된 번호만 입력해주세요.");
