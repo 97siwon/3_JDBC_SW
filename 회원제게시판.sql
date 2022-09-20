@@ -78,6 +78,39 @@ WHERE MEMBER_ID = 'user01'
 AND MEMBER_PW = 'pass01'
 AND SECESSION_FL = 'N';
 
+-- 회원 목록 조회(아이디, 이름, 성별)
+-- 탈퇴 회원 미포함
+-- 가입일 내림차순
+         --> MEMBER _NO 내림차순(나중에 가입한 회원의 번호가 더 큼)
+SELECT MEMBER_ID, MEMBER_NM, MEMBER_GENDER
+FROM MEMBER
+WHERE SECESSION_FL = 'N'
+ORDER BY MEMBER_NO  DESC;
+
+
+-- 회원 정보 수정(이름, 성별)
+UPDATE MEMBER SET
+MEMBER_NM = '유저사',  -- 입력
+MEMBER_GENDER = 'F'    -- 입력
+WHERE MEMBER_NO = 4;   -- loginMember.getMemberNo();
+
+ROLLBACK;
+SELECT * FROM "MEMBER";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -25,6 +25,8 @@ public class Member {
 		this.memberGender = memberGender;
 	}
 
+
+
 	// getter / setter
 	public int getMemberNo() {
 		return memberNo;
@@ -81,8 +83,9 @@ public class Member {
 	public void setSecessionFlag(String secessionFlag) {
 		this.secessionFlag = secessionFlag;
 	}
+
 	
-	
+
 	
 	
 }
