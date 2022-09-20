@@ -15,7 +15,8 @@ public class MainView {
 	private MainService service = new MainService();
 
 	// 로그인 된 회원 정보를 저장한 객체를 참조하는 참조변수
-	private Member loginMember = null;
+	// private Member loginMember = null;
+	public static Member loginMember = null;
 	// -> 로그인X == null
 	// -> 로그인O != null
 
