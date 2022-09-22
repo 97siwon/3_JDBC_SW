@@ -2,9 +2,13 @@ package edu.kh.jdbc.swmain.view;
 
 import java.util.Scanner;
 
+import edu.kh.jdbc.swstudent.view.StudentView;
+
 public class SwView {
 
 	private Scanner sc = new Scanner(System.in);
+	
+	private StudentView studentview = new StudentView(); 
 
 	public void mainMenu() {
 
@@ -24,7 +28,7 @@ public class SwView {
 				System.out.println();
 
 				switch (input) {
-				case 1: studentView.studentMenu();
+				case 1: studentview.studentMenu();
 					break;
 				case 2:
 					break;

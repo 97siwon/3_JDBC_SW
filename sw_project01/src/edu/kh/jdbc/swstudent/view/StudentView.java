@@ -3,6 +3,8 @@ package edu.kh.jdbc.swstudent.view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import edu.kh.jdbc.swstudent.vo.Student;
+
 public class StudentView {
 
 	private Scanner sc = new Scanner(System.in);
@@ -29,7 +31,7 @@ public class StudentView {
 
 				System.out.println();
 				switch (input) {
-				case 1:
+				case 1: insertStudent();
 					break;
 
 				case 2:
@@ -61,6 +63,56 @@ public class StudentView {
 
 		} while (input != 0);
 
+	}
+
+	/**
+	 * 새로운 원생 추가
+	 */
+	private void insertStudent() {
+		System.out.println("\n[새로운 원생 추가]\n");
+		
+		System.out.print("원생 번호 >> ");
+		int studentId = sc.nextInt();
+		
+		System.out.print("원생 이름 >> ");
+		String studentName = sc.next();
+		
+		String studentGender;
+		while(true) {
+			System.out.print("원생 성별(M/F) >> ");
+			studentGender = sc.next().toUpperCase();
+			
+			System.out.println();
+			if(studentGender.equals("M") || studentGender.equals("F")) {
+				break;
+			} else {
+				System.out.println("[M 또는 F만 입력해 주세요.]");
+			}
+			System.out.println();
+		}
+		
+		System.out.print("원생 주민등록번호 >> ");
+		String studentNo = sc.next();
+
+		System.out.print("입관 일자 >> ");
+		String startDate = sc.next();
+		
+		System.out.print("원생 띠 >> ");
+		String studentBelt = sc.next();
+		
+		Student student = new Student(studentId, studentName, studentGender, studentNo,
+				startDate, studentBelt);
+		
+		int result = dao.insertStudent(student);
+		
+		if(result > 0) {
+			System.out.println("<<원생 등록 완료>>");
+		} else {
+			System.out.println("<<원생 등록 실패>>");
+		}
+		
+		
+		
 	}
 
 }
