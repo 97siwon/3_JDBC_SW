@@ -3,4 +3,16 @@
 <properties>
 	<comment>sw_query.xml file</comment>
 	
+	<!-- 원생 추가 -->
+	<entry key="insertStudent">
+		INSERT INTO "STUDENT"
+		VALUES(?, ?, ?, ?, ?, ?)
+	</entry>
+	
+	<!-- 원생 목록 조회 -->
+	<entry key="selectAll">
+		SELECT STUDENT_NO, STUDENT_NM, STUDENT_GENDER, STUDENT_SSN, STUDENT_DATE, STUDENT_BELT
+		FROM STUDENT
+	</entry>
+	
 </properties>

@@ -265,6 +265,40 @@ WHERE BOARD_NO = 3;
 COMMIT;
 
 
+-- 댓글 수정
+
+
+
+-- 댓글 삭제
+
+
+-- 게시글 수정
+UPDATE "BOARD" SET
+BOARD_TITLE = ?,
+BOARD_CONTENT = ?
+WHERE BOARD_NO = ?;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
