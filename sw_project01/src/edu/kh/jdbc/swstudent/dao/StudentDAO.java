@@ -83,20 +83,13 @@ public class StudentDAO {
 			while(rs.next()) {
 				int studentId = rs.getInt("STUDENT_NO");
 				String studentName = rs.getString("STUDENT_NM");
-				String studentGender = rs.getString("STUDENT_Gender");
+				String studentGender = rs.getString("STUDENT_GENDER");
 				String studentNo = rs.getString("STUDENT_SSN");
 				String startDate = rs.getString("STUDENT_DATE");
 				String studentBelt = rs.getString("STUDENT_BELT");
 				
 				Student student = new Student(studentId, studentName, studentGender,
 						studentNo, startDate, studentBelt);
-				
-//				student.setStudentId(studentId);
-//				student.setStudentName(studentName);
-//				student.setStudentGender(studentGender);
-//				student.setStudentNo(studentNo);
-//				student.setStartDate(startDate);
-//				student.setStudentBelt(studentBelt);
 			
 				studentList.add(student);	
 			}
@@ -109,17 +102,72 @@ public class StudentDAO {
 		return studentList;
 	}
 
+	/** 이름이 일치하는 사원 조회 DAO
+	 * @param conn
+	 * @param studentName
+	 * @return student
+	 * @throws Exception
+	 */
+	public Student selectName(Connection conn, String studentName) throws Exception {
+		Student student = null;
+		
+		try {
+			String sql = prop.getProperty("selectName");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, studentName);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int studentId = rs.getInt("STUDENT_NO");
+				String studentGender = rs.getString("STUDENT_GENDER");
+				String studentNo = rs.getString("STUDENT_SSN");
+				String startDate = rs.getString("STUDENT_DATE");
+				String studentBelt = rs.getString("STUDENT_BELT");
+				
+				student = new Student(studentId, studentName, studentGender,
+						studentNo, startDate, studentBelt);
+			}
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return student;
+	}
 
+	/** 원생 정보 수정 DAO
+	 * @param conn
+	 * @param student
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateStudent(Connection conn, Student student) throws Exception {
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateStudent");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, student.getStudentId());
+			pstmt.setString(2, student.getStudentBelt());
+			pstmt.setString(3, student.getStudentName());
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+
+	
+

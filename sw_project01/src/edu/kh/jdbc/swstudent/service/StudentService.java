@@ -44,4 +44,39 @@ public class StudentService {
 		return studentList;
 	}
 
+	/** 이름이 일치하는 원생 조회 서비스
+	 * @param studentName
+	 * @return student
+	 * @throws Exception
+	 */
+	public Student selectName(String studentName) throws Exception {
+		Connection conn = getConnection();
+		
+		Student student = dao.selectName(conn, studentName);
+		
+		close(conn);
+		
+		return student;
+	}
+
+	/** 원생 정보 수정 서비스
+	 * @param student
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateStudent(Student student) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.updateStudent(conn, student);
+		
+		if(result > 0) commit(conn);
+		else           rollback(conn);
+		
+		close(conn);
+
+		return result;
+	}
+
+
+
 }

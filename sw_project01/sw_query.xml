@@ -6,13 +6,32 @@
 	<!-- 원생 추가 -->
 	<entry key="insertStudent">
 		INSERT INTO "STUDENT"
-		VALUES(?, ?, ?, ?, ?, ?)
+		VALUES(?, ?, ?, ?, ?, ?, DEFAULT)
 	</entry>
 	
 	<!-- 원생 목록 조회 -->
 	<entry key="selectAll">
-		SELECT STUDENT_NO, STUDENT_NM, STUDENT_GENDER, STUDENT_SSN, STUDENT_DATE, STUDENT_BELT
+		SELECT STUDENT_NO, STUDENT_NM, STUDENT_GENDER, STUDENT_SSN, 
+		       STUDENT_DATE, STUDENT_BELT
 		FROM STUDENT
 	</entry>
+	
+	<!-- 이름이 일치하는 원생 조회 -->
+	<entry key="selectName">
+		SELECT STUDENT_NO, STUDENT_NM, STUDENT_GENDER, STUDENT_SSN, 
+		       STUDENT_DATE, STUDENT_BELT, STUDENT_SECESSION_FL
+		FROM STUDENT
+		WHERE STUDENT_NM =?
+	</entry>
+	
+	<!-- 원생 정보 수정  -->
+	<entry key="updateStudent">
+		UPDATE STUDENT SET
+		STUDENT_NO = ?,
+		STUDENT_BELT = ?
+		WHERE STUDENT_NM = ?
+	</entry>
+	
+	
 	
 </properties>

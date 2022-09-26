@@ -30,7 +30,7 @@ public class StudentView {
 				System.out.println("0. 메인 화면");
 				System.out.println("99. 프로그램 종료");
 
-				System.out.print("\n메뉴 선택 >> \n");
+				System.out.print("\n메뉴 선택 >> ");
 				input = sc.nextInt();
 				sc.nextLine();
 
@@ -42,13 +42,13 @@ public class StudentView {
 				case 2: selectAll();
 					break;
 
-				case 3:
+				case 3: selectName();
 					break;
 
-				case 4:
+				case 4: updateStudent();
 					break;
 
-				case 5:
+				case 5: secession();
 					break;
 
 				case 0:
@@ -69,6 +69,7 @@ public class StudentView {
 		} while (input != 0);
 
 	}
+
 
 	/**
 	 * 새로운 원생 추가
@@ -135,10 +136,10 @@ public class StudentView {
 			if(studentList.isEmpty()) {
 				System.out.println("\n[조회 결과가 없습니다.]\n");
 			} else {
-				System.out.println("원생 번호 | 이름 | 성별 | 주민등록번호 | 입관일자 | 띠");
+				System.out.println("원생 번호 | 이름 | 성별 | 주민등록번호 | 입관일자 | 띠 ");
 				System.out.println("-------------------------------------------------");
 				for( Student student : studentList ) {
-					System.out.printf("%d | %s | %s | %s | %s | %s\n", 
+					System.out.printf("%d | %s | %s | %s | %s | %s \n", 
 							student.getStudentId(),
 							student.getStudentName(),
 							student.getStudentGender(),
@@ -156,4 +157,109 @@ public class StudentView {
 	}
 	
 	
+	/**
+	 * 이름이 일치하는 원생 조회
+	 */
+	private void selectName() {
+		System.out.println("\n[이름이 일치하는 원생 조회]\n");
+		
+		try {
+			System.out.print("원생 이름 입력 : ");
+			String studentName = sc.next();
+			
+			Student student = service.selectName(studentName);
+			
+			if(student != null) {
+				System.out.println("원생 번호 : " + student.getStudentId());
+				System.out.println("원생 이름 : " + student.getStudentName());
+				System.out.println("성별 : " + student.getStudentGender());
+				System.out.println("주민등록번호 : " + student.getStudentNo());
+				System.out.println("입관 일자 : " + student.getStartDate());
+				System.out.println("띠 : " + student.getStudentBelt());
+			} else {
+				System.out.println("\n[일치하는 원생이 없습니다.]\n");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("\n<<이름이 일치하는 원생 조회 중 예외 발생>>\n");
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	
+	/**
+	 * 원생 정보 수정(이름, 띠)
+	 */
+	private void updateStudent() {
+		System.out.println("\n[원생 정보 수정]\n");
+		
+		try {
+			System.out.print("수정할 원생 이름 입력 : ");
+			String studentName = sc.next();
+			
+			System.out.print("변경할 번호 : ");
+			int studentId = sc.nextInt();
+			
+			System.out.print("변경할 띠 : ");
+			String studentBelt = sc.next();
+			
+			Student student = new Student();
+			student.setStudentName(studentName);
+			student.setStudentId(studentId);
+			student.setStudentBelt(studentBelt);
+			
+			int result = service.updateStudent(student);
+			
+			if(result > 0) {
+				System.out.println("\n[원생 정보가 수정되었습니다.]\n");
+			} else {
+				System.out.println("\n[수정 실패]\n");
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("\n<<원생 정보 수정 중 예외가 발생했습니다.>>\n");
+		}
+	}
+	
+	
+	/**
+	 * 원생 퇴원
+	 */
+	private void secession() {
+		System.out.println("\n[원생 퇴원]\n");
+		
+		try {
+			while(true) {
+				System.out.print("정말 탈퇴하시겠습니까?(Y/N) : ");
+				char ch = sc.next().toUpperCase().charAt(0);
+				
+				if(ch == 'Y') {
+					int result = service.secession();
+					
+					if(result > 0) {
+						System.out.println("\n[탈퇴되었습니다.]\n");
+						
+						input = 0;
+					} else {
+						System.out.println("\n[실패하였습니다.]\n");
+					}
+					break;
+				} else if(ch == 'N') {
+					System.out.println("\n[취소되었습니다.]\n");
+					break;
+				} else {
+					System.out.println("\n[Y 또는 N을 입력해주세요.]\n");
+				}
+			}
+			
+		} catch (Exception e) {
+			System.out.println("\n<<회원 탈퇴 중 예외 발생>>\n");
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

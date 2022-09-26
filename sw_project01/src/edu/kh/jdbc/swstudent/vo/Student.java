@@ -10,9 +10,25 @@ public class Student {
 	private String studentNo;
 	private String startDate;
 	private String studentBelt;
+	private String studentSecession;
 	
 	
 	public Student() { }
+
+
+
+
+	public Student(int studentId, String studentName, String studentGender, String studentNo, String startDate,
+			String studentBelt, String studentSecession) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentGender = studentGender;
+		this.studentNo = studentNo;
+		this.startDate = startDate;
+		this.studentBelt = studentBelt;
+		this.studentSecession = studentSecession;
+	}
 
 
 	public Student(int studentId, String studentName, String studentGender, String studentNo, String startDate,
@@ -88,7 +104,15 @@ public class Student {
 		this.studentBelt = studentBelt;
 	}
 	
-	
+
+	public String getStudentSecession() {
+		return studentSecession;
+	}
+
+
+	public void setStudentSecession(String studentSecession) {
+		this.studentSecession = studentSecession;
+	}
 	
 	
 }
