@@ -232,12 +232,15 @@ public class StudentView {
 		System.out.println("\n[원생 퇴원]\n");
 		
 		try {
+			System.out.print("탈퇴할 회원 이름 입력 : ");
+			String studentName = sc.next();
+			
 			while(true) {
 				System.out.print("정말 탈퇴하시겠습니까?(Y/N) : ");
 				char ch = sc.next().toUpperCase().charAt(0);
 				
 				if(ch == 'Y') {
-					int result = service.secession();
+					int result = service.secession(studentName);
 					
 					if(result > 0) {
 						System.out.println("\n[탈퇴되었습니다.]\n");

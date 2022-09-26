@@ -77,6 +77,24 @@ public class StudentService {
 		return result;
 	}
 
+	/** 원생 퇴원 서비스
+	 * @param studentName
+	 * @return result
+	 * @throws Exception
+	 */
+	public int secession(String studentName) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.secession(conn, studentName);
+		
+		if(result > 0) commit(conn);
+		else           rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 
 }
