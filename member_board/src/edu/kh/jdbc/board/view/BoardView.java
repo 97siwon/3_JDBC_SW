@@ -48,10 +48,10 @@ public class BoardView {
 					selectBoard(); // 게시글 상세 조회
 					break;
 				case 3:
+					insertBoard(); // 게시물 등록(삽입)
 					break;
 				case 4:
-					break;
-				case 5:
+					searchBoard();
 					break;
 				case 0:
 					System.out.println("로그인 메뉴로 돌아갑니다.");
@@ -69,6 +69,7 @@ public class BoardView {
 		} while (input != 0);
 
 	}
+
 
 	/**
 	 * 게시물 목록 조회
@@ -161,13 +162,13 @@ public class BoardView {
 			System.out.println("1) 댓글 등록");
 			System.out.println("2) 댓글 수정");
 			System.out.println("3) 댓글 삭제");
-			
+
 			// 로그인한 회원과 게시글 작성자가 같은 경우에만 출력되는 메뉴
-			if(MainView.loginMember.getMemberNo() == board.getMemberNo()) {
+			if (MainView.loginMember.getMemberNo() == board.getMemberNo()) {
 				System.out.println("4) 게시글 수정");
 				System.out.println("5) 게시글 삭제");
 			}
-			
+
 			System.out.println("0) 게시판 메뉴로 돌아가기");
 
 			System.out.print("\n서브 메뉴 선택 : \n");
@@ -191,25 +192,26 @@ public class BoardView {
 				System.out.println("\n[게시판 메뉴로 돌아갑니다.]\n");
 				break;
 
-			case 4: case 5: // 4 또는 5 입력 시
-				
+			case 4:
+			case 5: // 4 또는 5 입력 시
+
 				// 4 또는 5를 입력한 회원이 게시글 작성자인 경우
-				if(MainView.loginMember.getMemberNo() == board.getMemberNo()) {
-					
-					if(input == 4) {
+				if (MainView.loginMember.getMemberNo() == board.getMemberNo()) {
+
+					if (input == 4) {
 						// 게시글 수정 호출
 						updateBoard(board.getBoardNo());
 					}
-					
-					if(input == 5) {
+
+					if (input == 5) {
 						// 게시글 삭제 호출
 						deleteBoard(board.getBoardNo());
 					}
-					
+
 					break; // switch문 종료
-					
+
 				}
-				
+
 			default:
 				System.out.println("\n[메뉴에 작성된 번호만 입력해주세요.]\n");
 			}
@@ -248,7 +250,6 @@ public class BoardView {
 		}
 
 	}
-
 
 	/**
 	 * 댓글 등록
@@ -370,9 +371,10 @@ public class BoardView {
 		}
 
 	}
-	
 
-	/** 댓글 삭제
+	/**
+	 * 댓글 삭제
+	 * 
 	 * @param commentList
 	 * @param memberNo
 	 */
@@ -400,16 +402,16 @@ public class BoardView {
 						// y인 경우 댓글 삭제 서비스 호출
 						System.out.print("정말 삭제 하시겠습니까? (Y/N) : ");
 						char ch = sc.next().toUpperCase().charAt(0);
-						
-						if(ch == 'Y') {
+
+						if (ch == 'Y') {
 							int result = cService.deleteComment(commentNo);
-							
-							if(result > 0) {
+
+							if (result > 0) {
 								System.out.println("\n[댓글 삭제 성공]\n");
 							} else {
 								System.out.println("\n[댓글 삭제 실패]\n");
 							}
-								
+
 						} else {
 							System.out.println("\n[취소되었습니다.]\n");
 						}
@@ -429,80 +431,203 @@ public class BoardView {
 			System.out.println("\n<<댓글 삭제 중 예외 발생>>\n");
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
-	/** 게시글 수정
+
+	/**
+	 * 게시글 수정
+	 * 
 	 * @param boardNo
 	 */
 	private void updateBoard(int boardNo) {
-		
+
 		try {
 			System.out.println("\n[게시글 수정]\n");
-			
+
 			System.out.print("수정할 제목 : ");
 			String boardTitle = sc.nextLine();
-			
+
 			System.out.println("수정할 내용 : ");
 			String boardContent = inputContent();
-			
+
 			// 수정된 제목/내용 + 게시글 번호를 한 번에 전달하기 위한 Board 객체 생성
 			Board board = new Board();
 			board.setBoardNo(boardNo);
 			board.setBoardTitle(boardTitle);
 			board.setBoardContent(boardContent);
-			
+
 			// 수정 서비스 호출
 			int result = bService.updateBoard(board);
-			
-			if(result > 0) {
+
+			if (result > 0) {
 				System.out.println("\n[게시글 수정 성공]\n");
 			} else {
 				System.out.println("\n[게시글 수정 실패]\n");
 			}
-			
-			
+
 		} catch (Exception e) {
 			System.out.println("\n<<게시글 수정 중 예외 발생>>\n");
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
-	/** 게시글 삭제
+
+	/**
+	 * 게시글 삭제
+	 * 
 	 * @param boardNo
 	 */
 	private void deleteBoard(int boardNo) {
-		
+
 		try {
 			System.out.println("\n[게시글 삭제]\n");
-			
+
 			System.out.println("\n[게시글 삭제]\n");
 			System.out.print("정말 삭제하시겠습니까?(Y/N) : ");
 			char ch = sc.next().toLowerCase().charAt(0); // 소문자로 변환하여 첫 글자
-			
-			if(ch == 'y') {
-				
+
+			if (ch == 'y') {
+
 				// 삭제 서비스 호출
 				int result = bService.deleteBoard(boardNo);
-				
-				if(result > 0) {
+
+				if (result > 0) {
 					System.out.println("\n[게시글 삭제 성공]\n");
 				} else {
 					System.out.println("\n[게시글 삭제 실패]\n");
 				}
-	
+
 			} else {
 				System.out.println("\n[삭제 취소]\n");
 			}
-	
+
 		} catch (Exception e) {
 			System.out.println("\n<<게시글 삭제 중 예외 발생>>\n");
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	/**
+	 * 게시물 등록(삽입)
+	 */
+	private void insertBoard() {
+
+		try {
+			System.out.println("\n[게시글 등록]\n");
+			
+			System.out.print("제목 : ");
+			String boardTitle = sc.nextLine();
+			
+			System.out.println("내용 : ");
+			String boardContent = inputContent();
+			
+			// Board 객체에 제목, 내용, 회원 번호를 담아서 서비스에 전달
+			Board board = new Board();
+			board.setBoardTitle(boardTitle);
+			board.setBoardContent(boardContent);
+			board.setMemberNo(MainView.loginMember.getMemberNo());
+			
+			int result = bService.insertBoard(board);
+			// 0 또는 생성된 게시글 번호(0 초과)
+			
+			if(result > 0) {
+				System.out.println("\n[게시글이 등록되었습니다.]\n");
+				
+				// 게시글 상세 조회 서비스 호출 후 결과 반환 받기
+				Board b = bService.selectBoard(result, MainView.loginMember.getMemberNo());
+				// 게시글번호, 로그인한 회원의 회원번호
+				// -> 자신의 글 조회수 증가 X
+
+				if (b != null) {
+					System.out.println("--------------------------------------------------------");
+					System.out.printf("글번호 : %d \n제목 : %s\n", b.getBoardNo(), b.getBoardTitle());
+					System.out.printf("작성자 : %s | 작성일 : %s  \n조회수 : %d\n", b.getMemberName(), b.getCreateDate(),
+							b.getReadCount());
+					System.out.println("--------------------------------------------------------\n");
+					System.out.println(b.getBoardContent());
+					System.out.println("\n--------------------------------------------------------");
+
+					// 댓글 목록
+					if (!b.getCommentList().isEmpty()) {
+						for (Comment c : b.getCommentList()) {
+							System.out.printf("댓글번호: %d   작성자: %s  작성일: %s\n%s\n", c.getCommentNo(), c.getMemberName(),
+									c.getCreateDate(), c.getCommentContent());
+							System.out.println(" --------------------------------------------------------");
+						}
+					}
+
+					// 댓글 등록, 수정, 삭제
+					// 게시글 수정/삭제 메뉴
+					subBoardMenu(b);
+
+				} else {
+					System.out.println("[\n해당 번호의 게시글이 존재하지 않습니다.]\n");
+				}
+				
+			} else {
+				System.out.println("\n[게시글 등록 실패]\n");
+			}
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println("\n<<게시글 등록 중 예외 발생>>\n");
+			e.printStackTrace();
+		}
+
 	}
 	
+	
+	/**
+	 * 게시글 검색
+	 */
+	private void searchBoard() {
+		try {
+			System.out.println("\n[게시글 검색]\n");
+			
+			System.out.println("1) 제목");
+			System.out.println("2) 내용");
+			System.out.println("3) 제목 + 내용");
+			System.out.println("4) 작성자");
+			System.out.print("검색 조건 선택 : ");
+			
+			int condition = sc.nextInt();
+			sc.nextLine();
+			
+			if(condition >= 1 && condition <= 4) { // 정상 입력
+				System.out.print("검색어 입력 : ");
+				String query = sc.nextLine();
+				
+				// 검색 서비스 호출 후 결과 반환 받기
+				List<Board> boardList = bService.searchBoard(condition, query);
+				
+				if (boardList.isEmpty()) { // 조회 결과가 없을 경우
+					System.out.println("\n[검색 결과가 없습니다.]\n");
+
+				} else {
+
+					for (Board b : boardList) {
+
+						// 3 | 샘플 제목3[4] | 유저삼 | 3시간전 | 10
+						System.out.printf("%d | %s[%d] | %s | %s | %d\n", b.getBoardNo(), b.getBoardTitle(),
+								b.getCommentCount(), b.getMemberName(), b.getCreateDate(), b.getReadCount());
+					}
+
+				}
+				
+			} else { // 비정상 입력
+				System.out.println("\n[1~4번 사이의 숫자를 입력해주세요.]\n");
+			}
+					
+			
+			
+		} catch (Exception e) {
+			System.out.println("\n<<게시글 검색 중 예외 발생>>\n");
+			e.printStackTrace();
+			
+		}
+		
+	}
+
 }
