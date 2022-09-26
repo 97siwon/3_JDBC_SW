@@ -138,7 +138,7 @@ public class StudentView {
 				System.out.println("원생 번호 | 이름 | 성별 | 주민등록번호 | 입관일자 | 띠");
 				System.out.println("-------------------------------------------------");
 				for( Student student : studentList ) {
-					System.out.printf("%d | %s | %s | %s | %s | %s", 
+					System.out.printf("%d | %s | %s | %s | %s | %s\n", 
 							student.getStudentId(),
 							student.getStudentName(),
 							student.getStudentGender(),
@@ -146,6 +146,7 @@ public class StudentView {
 							student.getStartDate(),
 							student.getStudentBelt());
 				}
+				System.out.println();
 			}
 	
 		} catch (Exception e) {

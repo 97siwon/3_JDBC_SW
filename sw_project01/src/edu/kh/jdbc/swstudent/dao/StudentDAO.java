@@ -106,7 +106,7 @@ public class StudentDAO {
 			close(stmt);
 		}
 	
-		return null;
+		return studentList;
 	}
 
 
