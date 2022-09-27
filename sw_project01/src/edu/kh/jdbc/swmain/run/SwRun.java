@@ -7,6 +7,7 @@ public class SwRun {
 	public static void main(String[] args) {
 		new SwView().mainMenu();
 
+		
 	}
 
 }

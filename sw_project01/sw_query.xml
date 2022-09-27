@@ -35,8 +35,8 @@
 	<!-- 원생 퇴원  -->
 	<entry key="secession">
 		UPDATE STUDENT SET
-		SECESSION_FL = 'Y'
-		WHERE MEMBER_NM = ?
+		STUDENT_SECESSION_FL = 'Y'
+		WHERE STUDENT_NM = ?
 	</entry>
 	
 </properties>

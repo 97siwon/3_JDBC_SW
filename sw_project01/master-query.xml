@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>master-query.xml file</comment>
+	
+	<entry key="updateMaster">
+		UPDATE MASTER SET
+		GYM_NM = ?,  
+		STUDENT_COUNT = ?    
+		WHERE MASTER_ID = ?
+	</entry>
+	
+	<entry key="updatePw">
+		UPDATE MASTER SET
+		MASTER_PW = ?
+		WHERE MASTER_ID = ?
+		AND MASTER_PW  = ?
+	</entry>
+	
+	<entry key="secession">
+		UPDATE MASTER SET
+		SECESSION_FL = 'Y'
+		WHERE MASTER_NM = ?
+		AND MASTER_PW = ?
+	</entry>
+</properties>
