@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>test-query.xml file</comment>
+	<entry key="selectBelt">
+		SELECT STUDENT_NM, STUDENT_DATE, STUDENT_SECESSION_FL
+		FROM STUDENT
+		WHERE STUDENT_BELT = ?
+	</entry>
+</properties>

@@ -6,6 +6,7 @@ import edu.kh.jdbc.swmain.service.SwService;
 import edu.kh.jdbc.swmaster.view.MasterView;
 import edu.kh.jdbc.swmaster.vo.SwMaster;
 import edu.kh.jdbc.swstudent.view.StudentView;
+import edu.kh.jdbc.swtest.view.TestView;
 
 public class SwView {
 
@@ -19,6 +20,7 @@ public class SwView {
 
 	private StudentView studentview = new StudentView();
 	private MasterView masterView = new MasterView(); 
+	private TestView testView = new TestView();
 
 	public void mainMenu() {
 
@@ -71,7 +73,7 @@ public class SwView {
 					case 1:
 						studentview.studentMenu();
 						break;
-					case 2:
+					case 2: testView.testMenu(loginMaster);
 						break;
 					case 3:
 						masterView.masterMenu(loginMaster);

@@ -9,12 +9,11 @@ public class SwTest {
 	private String studentBelt;
 	private String testAttendance;
 	private String testPay;
-	private int testCount;
 	
 	public SwTest() {  }
 
 	public SwTest(int testNo, String testName, String testDate, int studentId, String studentBelt,
-			String testAttendance, String testPay, int testCount) {
+			String testAttendance, String testPay) {
 		super();
 		this.testNo = testNo;
 		this.testName = testName;
@@ -23,7 +22,10 @@ public class SwTest {
 		this.studentBelt = studentBelt;
 		this.testAttendance = testAttendance;
 		this.testPay = testPay;
-		this.testCount = testCount;
+	}
+
+	public SwTest(String studentName, String startDate, String secession) {
+		
 	}
 
 	public int getTestNo() {
@@ -82,14 +84,6 @@ public class SwTest {
 		this.testPay = testPay;
 	}
 
-	public int getTestCount() {
-		return testCount;
-	}
-
-	public void setTestCount(int testCount) {
-		this.testCount = testCount;
-	}
-	
 	
 	
 	

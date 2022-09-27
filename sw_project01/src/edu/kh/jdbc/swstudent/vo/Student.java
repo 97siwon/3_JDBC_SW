@@ -15,9 +15,6 @@ public class Student {
 	
 	public Student() { }
 
-
-
-
 	public Student(int studentId, String studentName, String studentGender, String studentNo, String startDate,
 			String studentBelt, String studentSecession) {
 		super();

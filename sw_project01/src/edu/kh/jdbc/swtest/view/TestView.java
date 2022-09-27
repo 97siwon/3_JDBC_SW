@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import edu.kh.jdbc.swmaster.vo.SwMaster;
+import edu.kh.jdbc.swstudent.vo.Student;
 import edu.kh.jdbc.swtest.service.TestService;
 import edu.kh.jdbc.swtest.vo.SwTest;
 
@@ -12,6 +13,7 @@ public class TestView {
 	private Scanner sc = new Scanner(System.in);
 
 	private TestService service = new TestService();
+	private Student student = new Student();
 
 	private int input = -1;
 
@@ -25,7 +27,7 @@ public class TestView {
 			try {
 				System.out.println("\n***** 심사 관리 *****\n");
 				System.out.println("1. 심사 정보 조회(날짜 입력)");
-				System.out.println("2. 띠 별 조회");
+				System.out.println("2. 띠 별 원생 조회");
 				System.out.println("3. 심사 참석 여부 조회");
 				System.out.println("4. 심사 참석자 중 미납자 조회");
 				System.out.println("5. 지난 심사 정보 조회");
@@ -42,7 +44,7 @@ public class TestView {
 					selectTestInfo();
 					break;
 
-				case 2:
+				case 2: selectBelt();
 					break;
 
 				case 3:
@@ -76,30 +78,59 @@ public class TestView {
 
 	}
 
+
 	/**
 	 * 심사 정보 조회
 	 */
 	private void selectTestInfo() {
 		System.out.println("[심사 정보 조회]");
 		
+//		try {
+//			System.out.println("년도 입력: ");
+//			int testYear = sc.nextInt();
+//			
+//			System.out.println("월 입력 : ");
+//			int testMonth = sc.nextInt();
+//			
+//
+//		} catch (Exception e) {
+//			System.out.println("\n<<심사 정보 조회 중 예외 발생>>\n");
+//			e.printStackTrace();
+//		}
+//		
+		
+	}
+	
+	
+	/**
+	 * 띠 별 원생 조회
+	 */
+	private void selectBelt() {
+		System.out.println("[띠 별 원생 조회]");
+		
 		try {
-			System.out.println("조회 원하는 날짜 입력(월까지만) : ");
-			String testDate = sc.next();
+			System.out.println("띠 입력 : ");
+			String testBelt = sc.next();
 			
-			SwTest test = service.selectTestInfo(testDate);
+			SwTest test = service.selectBelt(testBelt);
 			
 			if(test != null) {
-				System.out.println("심사 이름 : " + test.getTestName());
-				System.out.println("심사 참석 인원수 : " + test.getTestCount());
-			} else {
-				System.out.println("\n[일치하는 심사 정보가 없습니다.]\n");
-			}
+				System.out.println("원생 이름 : " + student.getStudentName());
+				System.out.println("입관 일자 : " + student.getStartDate());
+				System.out.println("퇴원 여부 : " + student.getStudentSecession());
 	
+			} else {
+				System.out.println("\n[일치하는 원생이 없습니다.]\n");
+			}
+			
+			
+			
 		} catch (Exception e) {
-			System.out.println("\n<<심사 정보 조회 중 예외 발생>>\n");
+			System.out.println("<<띠 별 원생 조회 중 예외 발생>>");
 			e.printStackTrace();
 		}
 		
-		
 	}
+	
+	
 }
