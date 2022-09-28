@@ -13,13 +13,13 @@
 	<!-- 회원 가입 -->
 	<entry key="signUp">
 		INSERT INTO "MASTER"
-		VALUES( ?,?,?,?,?,DEFAULT,DEFAULT)
+		VALUES(SEQ_MASTER_NO.NEXTVAL, ?,?,?,?,?,DEFAULT,DEFAULT)
 	</entry>
 	
 	<!-- 로그인 -->
 	<entry key="login">
 		SELECT MASTER_ID, GYM_NM, MASTER_NM, STUDENT_COUNT, 
-			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') ENROLL_DATE
+			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') ENROLL_DATE
 		FROM MASTER
 		WHERE MASTER_ID = ?
 		AND MASTER_PW = ?

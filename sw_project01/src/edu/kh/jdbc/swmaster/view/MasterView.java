@@ -71,6 +71,7 @@ public class MasterView {
 
 		System.out.println("회원 아이디 : " + loginMaster.getMasterId());
 		System.out.println("체육관 이름 : " + loginMaster.getGymName());
+		System.out.println("도장 번호 : " + loginMaster.getMasterNo());
 		System.out.println("회원 이름 : " + loginMaster.getMasterName());
 		System.out.println("원생 수 : " + loginMaster.getStudentCount());
 		System.out.println("가입일 : " + loginMaster.getEnrollDate());

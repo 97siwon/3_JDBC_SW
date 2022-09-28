@@ -6,6 +6,7 @@ import edu.kh.jdbc.swmain.service.SwService;
 import edu.kh.jdbc.swmaster.view.MasterView;
 import edu.kh.jdbc.swmaster.vo.SwMaster;
 import edu.kh.jdbc.swstudent.view.StudentView;
+import edu.kh.jdbc.swstudent.vo.Student;
 import edu.kh.jdbc.swtest.view.TestView;
 
 public class SwView {
@@ -21,6 +22,7 @@ public class SwView {
 	private StudentView studentview = new StudentView();
 	private MasterView masterView = new MasterView(); 
 	private TestView testView = new TestView();
+	private Student student = new Student();
 
 	public void mainMenu() {
 
@@ -61,6 +63,7 @@ public class SwView {
 					System.out.println("1. 원생 관리");
 					System.out.println("2. 심사 관리");
 					System.out.println("3. 회원 기능");
+					System.out.println("4. 커뮤니티");
 					System.out.println("0. 로그아웃");
 					System.out.println("99. 프로그램 종료");
 
@@ -73,10 +76,13 @@ public class SwView {
 					case 1:
 						studentview.studentMenu();
 						break;
-					case 2: testView.testMenu(loginMaster);
+					case 2: 
+						testView.testMenu();
 						break;
 					case 3:
 						masterView.masterMenu(loginMaster);
+						break;
+					case 4: 
 						break;
 					case 0:
 						loginMaster = null;
@@ -101,6 +107,7 @@ public class SwView {
 
 		} while (input != 0);
 	}
+
 
 	private void signUp() {
 		System.out.println("[회원 가입]");
@@ -209,5 +216,6 @@ public class SwView {
 		}
 
 	}
+
 
 }

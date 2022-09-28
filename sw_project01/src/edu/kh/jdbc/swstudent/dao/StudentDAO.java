@@ -46,11 +46,12 @@ public class StudentDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, student.getStudentId());
-			pstmt.setString(2, student.getStudentName());
-			pstmt.setString(3, student.getStudentGender());
-			pstmt.setString(4, student.getStudentNo());
-			pstmt.setString(5, student.getStartDate());
-			pstmt.setString(6, student.getStudentBelt());
+			pstmt.setInt(2, student.getMasterNo());			
+			pstmt.setString(3, student.getStudentName());
+			pstmt.setString(4, student.getStudentGender());
+			pstmt.setString(5, student.getStudentNo());
+			pstmt.setString(6, student.getStartDate());
+			pstmt.setString(7, student.getStudentBelt());
 			
 			result = pstmt.executeUpdate();
 			
@@ -82,13 +83,14 @@ public class StudentDAO {
 			
 			while(rs.next()) {
 				int studentId = rs.getInt("STUDENT_NO");
+				int masterNo = rs.getInt("MASTER_NO");
 				String studentName = rs.getString("STUDENT_NM");
 				String studentGender = rs.getString("STUDENT_GENDER");
 				String studentNo = rs.getString("STUDENT_SSN");
 				String startDate = rs.getString("STUDENT_DATE");
 				String studentBelt = rs.getString("STUDENT_BELT");
 				
-				Student student = new Student(studentId, studentName, studentGender,
+				Student student = new Student(studentId, masterNo, studentName, studentGender,
 						studentNo, startDate, studentBelt);
 			
 				studentList.add(student);	
@@ -122,12 +124,13 @@ public class StudentDAO {
 			
 			if(rs.next()) {
 				int studentId = rs.getInt("STUDENT_NO");
+				int masterNo = rs.getInt("MASTER_NO");
 				String studentGender = rs.getString("STUDENT_GENDER");
 				String studentNo = rs.getString("STUDENT_SSN");
 				String startDate = rs.getString("STUDENT_DATE");
 				String studentBelt = rs.getString("STUDENT_BELT");
 				
-				student = new Student(studentId, studentName, studentGender,
+				student = new Student(studentId, masterNo ,studentName, studentGender,
 						studentNo, startDate, studentBelt);
 			}
 			

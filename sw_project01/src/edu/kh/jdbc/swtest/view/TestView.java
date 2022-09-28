@@ -1,6 +1,7 @@
 package edu.kh.jdbc.swtest.view;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import edu.kh.jdbc.swmaster.vo.SwMaster;
@@ -13,24 +14,17 @@ public class TestView {
 	private Scanner sc = new Scanner(System.in);
 
 	private TestService service = new TestService();
-	private Student student = new Student();
 
 	private int input = -1;
-
-	private SwMaster loginMaster = null;
-
-	public void testMenu(SwMaster loginMaster) {
-
-		this.loginMaster = loginMaster;
+	
+	public void testMenu() {
 
 		do {
 			try {
 				System.out.println("\n***** 심사 관리 *****\n");
-				System.out.println("1. 심사 정보 조회(날짜 입력)");
-				System.out.println("2. 띠 별 원생 조회");
-				System.out.println("3. 심사 참석 여부 조회");
-				System.out.println("4. 심사 참석자 중 미납자 조회");
-				System.out.println("5. 지난 심사 정보 조회");
+				System.out.println("1. 심사 이름별 원생 조회");
+				System.out.println("2. 심사비 납부");
+				System.out.println("3. 심사비 미납자 목록 조회");
 				System.out.println("0. 메인 화면");
 				System.out.println("99. 프로그램 종료");
 
@@ -41,19 +35,15 @@ public class TestView {
 				System.out.println();
 				switch (input) {
 				case 1:
-					selectTestInfo();
+					selectBelt();
 					break;
 
-				case 2: selectBelt();
+				case 2: 
+					testPay();
 					break;
 
 				case 3:
-					break;
-
-				case 4:
-					break;
-
-				case 5:
+					testNoPay();
 					break;
 
 				case 0:
@@ -76,60 +66,109 @@ public class TestView {
 
 		} while (input != 0);
 
-	}
+	}	
+
 
 
 	/**
-	 * 심사 정보 조회
-	 */
-	private void selectTestInfo() {
-		System.out.println("[심사 정보 조회]");
-		
-//		try {
-//			System.out.println("년도 입력: ");
-//			int testYear = sc.nextInt();
-//			
-//			System.out.println("월 입력 : ");
-//			int testMonth = sc.nextInt();
-//			
-//
-//		} catch (Exception e) {
-//			System.out.println("\n<<심사 정보 조회 중 예외 발생>>\n");
-//			e.printStackTrace();
-//		}
-//		
-		
-	}
-	
-	
-	/**
-	 * 띠 별 원생 조회
+	 * 심사 이름별 원생 목록 조회
 	 */
 	private void selectBelt() {
-		System.out.println("[띠 별 원생 조회]");
+		System.out.println("[심사 이름별 원생 목록 조회]");
 		
 		try {
-			System.out.println("띠 입력 : ");
-			String testBelt = sc.next();
+			System.out.print("심사 이름 입력 : ");
+			String testName = sc.next();
 			
-			SwTest test = service.selectBelt(testBelt);
+			List<SwTest> testList = service.selectName(testName);
 			
-			if(test != null) {
-				System.out.println("원생 이름 : " + student.getStudentName());
-				System.out.println("입관 일자 : " + student.getStartDate());
-				System.out.println("퇴원 여부 : " + student.getStudentSecession());
-	
+			if(testList.isEmpty()) {
+				System.out.println("일치하는 원생이 없습니다.");
 			} else {
-				System.out.println("\n[일치하는 원생이 없습니다.]\n");
+				System.out.println("심사 이름 | 심사 날짜 | 원생 이름 | 원생 띠 | 입관 일자 | 퇴원 여부");
+				System.out.println("----------------------------------------------------------");
+				
+				for(SwTest test : testList) {
+					System.out.printf("%s | %s | %s | %s | %s | %s \n",
+									test.getTestName(),
+									test.getTestDate(),
+									test.getStudentName(),
+									test.getStudentBelt(),
+									test.getStartDate(),
+									test.getStudentSecession());
+				}
+				System.out.println();
 			}
-			
-			
-			
+
 		} catch (Exception e) {
-			System.out.println("<<띠 별 원생 조회 중 예외 발생>>");
+			System.out.println("<<심사 이름별 원생 목록 조회 중 예외 발생>>");
 			e.printStackTrace();
 		}
 		
+	}
+	
+	
+	
+	/**
+	 * 심사비 납부
+	 */
+	private void testPay() {
+		System.out.println("\n[심사비 납부]\n");
+		
+		try {
+			System.out.print("원생 번호 입력 : ");
+			int studentNo = sc.nextInt();
+			
+			System.out.print("심사 이름 입력 : ");
+			String testName = sc.next();
+			
+			int result = service.testPay(studentNo, testName);
+			
+			if(result > 0) {
+				System.out.println("***** 심사비 납부 완료 *****");
+			} else {
+				System.out.println("***** 심사비 납부 실패 *****");
+			}
+
+		} catch (Exception e) {
+			System.out.println("\n<<심사비 납부 중 예외 발생>>\n");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 심사비 미납자 목록 조회
+	 */
+	private void testNoPay() {
+		System.out.println("\n[심사비 미납자 목록 조회]\n");
+		
+		try {
+			System.out.print("심사 이름 입력 : ");
+			String testName = sc.next();
+			
+			List<SwTest> testList2 = service.testNoPay(testName);
+			
+			if(testList2.isEmpty()) {
+				System.out.println("미납자가 없습니다.");
+			} else {
+				System.out.println("심사 이름 | 심사 날짜 | 원생 이름 |");
+				System.out.println("--------------------------------");
+				
+				for(SwTest test : testList2) {
+					System.out.printf("%s | %s | %s  \n",
+									test.getTestName(),
+									test.getTestDate(),
+									test.getStudentName());
+				}
+				System.out.println();
+			}
+
+		} catch (Exception e) {
+			System.out.println("<<심사비 미납자 목록 조회 중 예외 발생>>");
+			e.printStackTrace();
+		}
+
 	}
 	
 	

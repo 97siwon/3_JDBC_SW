@@ -1,7 +1,7 @@
 package edu.kh.jdbc.swtest.vo;
 
 public class SwTest {
-
+	
 	private int testNo;
 	private String testName;
 	private String testDate;
@@ -9,11 +9,13 @@ public class SwTest {
 	private String studentBelt;
 	private String testAttendance;
 	private String testPay;
-	
-	public SwTest() {  }
+	private String studentName;
+	private String startDate;
+	private String studentSecession;
+
 
 	public SwTest(int testNo, String testName, String testDate, int studentId, String studentBelt,
-			String testAttendance, String testPay) {
+			String testAttendance, String testPay, String studentName, String startDate, String studentSecession) {
 		super();
 		this.testNo = testNo;
 		this.testName = testName;
@@ -22,11 +24,37 @@ public class SwTest {
 		this.studentBelt = studentBelt;
 		this.testAttendance = testAttendance;
 		this.testPay = testPay;
+		this.studentName = studentName;
+		this.startDate = startDate;
+		this.studentSecession = studentSecession;
+	}
+	
+	
+	public SwTest() {  }
+
+
+	
+	
+
+	public SwTest(String testName, String testDate, String studentBelt, String studentName, String startDate,
+			String studentSecession) {
+		super();
+		this.testName = testName;
+		this.testDate = testDate;
+		this.studentBelt = studentBelt;
+		this.studentName = studentName;
+		this.startDate = startDate;
+		this.studentSecession = studentSecession;
 	}
 
-	public SwTest(String studentName, String startDate, String secession) {
-		
+
+	public SwTest(String testName, String testDate, String studentName) {
+		super();
+		this.testName = testName;
+		this.testDate = testDate;
+		this.studentName = studentName;
 	}
+
 
 	public int getTestNo() {
 		return testNo;
@@ -82,6 +110,36 @@ public class SwTest {
 
 	public void setTestPay(String testPay) {
 		this.testPay = testPay;
+	}
+
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+
+	public String getStudentSecession() {
+		return studentSecession;
+	}
+
+
+	public void setStudentSecession(String studentSecession) {
+		this.studentSecession = studentSecession;
 	}
 
 	

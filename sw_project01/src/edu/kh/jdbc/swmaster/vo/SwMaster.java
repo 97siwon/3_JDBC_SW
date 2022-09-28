@@ -2,6 +2,7 @@ package edu.kh.jdbc.swmaster.vo;
 
 public class SwMaster {
 
+	private int masterNo;
 	private String masterId;
 	private String masterPw;
 	private String gymName;
@@ -12,9 +13,10 @@ public class SwMaster {
 	
 	public SwMaster() { }
 	
-	public SwMaster(String masterId, String masterPw, String gymName, String masterName, int studentCount,
+	public SwMaster(int masterNo, String masterId, String masterPw, String gymName, String masterName, int studentCount,
 			String enrollDate, String secessionFlag) {
 		super();
+		this.masterNo = masterNo;
 		this.masterId = masterId;
 		this.masterPw = masterPw;
 		this.gymName = gymName;
@@ -88,6 +90,14 @@ public class SwMaster {
 
 	public void setSecessionFlag(String secessionFlag) {
 		this.secessionFlag = secessionFlag;
+	}
+
+	public int getMasterNo() {
+		return masterNo;
+	}
+
+	public void setMasterNo(int masterNo) {
+		this.masterNo = masterNo;
 	}
 	
 	

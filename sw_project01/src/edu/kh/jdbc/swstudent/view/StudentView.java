@@ -80,6 +80,9 @@ public class StudentView {
 		try {
 			System.out.print("원생 번호 >> ");
 			int studentId = sc.nextInt();
+
+			System.out.print("도장 번호 >> ");
+			int masterNo = sc.nextInt();
 			
 			System.out.print("원생 이름 >> ");
 			String studentName = sc.next();
@@ -105,7 +108,7 @@ public class StudentView {
 			System.out.print("원생 띠 >> ");
 			String studentBelt = sc.next();
 			
-			Student student = new Student(studentId, studentName, studentGender, studentNo,
+			Student student = new Student(studentId, masterNo, studentName, studentGender, studentNo,
 					startDate, studentBelt);
 			
 			int result = service.insertStudent(student);
@@ -136,11 +139,13 @@ public class StudentView {
 			if(studentList.isEmpty()) {
 				System.out.println("\n[조회 결과가 없습니다.]\n");
 			} else {
-				System.out.println("원생 번호 | 이름 | 성별 | 주민등록번호 | 입관일자 | 띠 ");
-				System.out.println("-------------------------------------------------");
+				
+				System.out.println("| 원생 번호 | 도장 번호 |  이름  | 성별 |      주민등록번호      |       입관일자       |   띠   ");
+				System.out.println("------------------------------------------------------------------------------------------");
 				for( Student student : studentList ) {
-					System.out.printf("%d | %s | %s | %s | %s | %s \n", 
+			     System.out.printf("|    %d   |   %d    |    %s |  %s |      %s     |    %s     |   %s   \n", 
 							student.getStudentId(),
+							student.getMasterNo(),
 							student.getStudentName(),
 							student.getStudentGender(),
 							student.getStudentNo(),
@@ -171,6 +176,7 @@ public class StudentView {
 			
 			if(student != null) {
 				System.out.println("원생 번호 : " + student.getStudentId());
+				System.out.println("도장 번호 : " + student.getMasterNo());
 				System.out.println("원생 이름 : " + student.getStudentName());
 				System.out.println("성별 : " + student.getStudentGender());
 				System.out.println("주민등록번호 : " + student.getStudentNo());
@@ -199,7 +205,7 @@ public class StudentView {
 			System.out.print("수정할 원생 이름 입력 : ");
 			String studentName = sc.next();
 			
-			System.out.print("변경할 번호 : ");
+			System.out.print("변경할 원생 번호 : ");
 			int studentId = sc.nextInt();
 			
 			System.out.print("변경할 띠 : ");
@@ -243,7 +249,7 @@ public class StudentView {
 					int result = service.secession(studentName);
 					
 					if(result > 0) {
-						System.out.println("\n[탈퇴되었습니다.]\n");
+						System.out.println("\n[퇴원 처리되었습니다.]\n");
 						
 						input = 0;
 					} else {

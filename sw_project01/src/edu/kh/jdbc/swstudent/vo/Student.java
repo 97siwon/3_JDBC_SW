@@ -5,6 +5,7 @@ import edu.kh.jdbc.swstudent.vo.Student;
 public class Student {
 
 	private int studentId;
+	private int masterNo;
 	private String studentName;
 	private String studentGender; 
 	private String studentNo;
@@ -15,10 +16,13 @@ public class Student {
 	
 	public Student() { }
 
-	public Student(int studentId, String studentName, String studentGender, String studentNo, String startDate,
-			String studentBelt, String studentSecession) {
+
+
+	public Student(int studentId, int masterNo, String studentName, String studentGender, String studentNo,
+			String startDate, String studentBelt, String studentSecession) {
 		super();
 		this.studentId = studentId;
+		this.masterNo = masterNo;
 		this.studentName = studentName;
 		this.studentGender = studentGender;
 		this.studentNo = studentNo;
@@ -28,10 +32,13 @@ public class Student {
 	}
 
 
-	public Student(int studentId, String studentName, String studentGender, String studentNo, String startDate,
+
+
+	public Student(int studentId, int masterNo, String studentName, String studentGender, String studentNo, String startDate,
 			String studentBelt) {
 		super();
 		this.studentId = studentId;
+		this.masterNo = masterNo;
 		this.studentName = studentName;
 		this.studentGender = studentGender;
 		this.studentNo = studentNo;
@@ -110,6 +117,21 @@ public class Student {
 	public void setStudentSecession(String studentSecession) {
 		this.studentSecession = studentSecession;
 	}
-	
+
+
+
+	public int getMasterNo() {
+		return masterNo;
+	}
+
+
+
+
+	public void setMasterNo(int masterNo) {
+		this.masterNo = masterNo;
+	}
+
+
+
 	
 }
