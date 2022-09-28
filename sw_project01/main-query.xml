@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>main-query.xml file</comment>
+	
+	<!-- 아이디 중복 검사 -->
+	<entry key="idDupCheck">
+		SELECT COUNT(*) FROM "MASTER"
+		WHERE MASTER_ID = ?
+		AND SECESSION_FL = 'N'
+	</entry>
+	
+	<!-- 회원 가입 -->
+	<entry key="signUp">
+		INSERT INTO "MASTER"
+		VALUES(SEQ_MASTER_NO.NEXTVAL, ?,?,?,?,?,DEFAULT,DEFAULT)
+	</entry>
+	
+	<!-- 로그인 -->
+	<entry key="login">
+		SELECT MASTER_ID, GYM_NM, MASTER_NM, STUDENT_COUNT, 
+			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') ENROLL_DATE
+		FROM MASTER
+		WHERE MASTER_ID = ?
+		AND MASTER_PW = ?
+		AND SECESSION_FL = 'N'
+	</entry>
+	
+</properties>

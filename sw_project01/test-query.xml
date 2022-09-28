@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>test-query.xml file</comment>
+	<entry key="selectName">
+		SELECT TEST_NM, TEST_DATE, STUDENT_NM, STUDENT_BELT, TO_CHAR(STUDENT_DATE,  'YYYY"년" MM"월" DD"일"') STUDENT_DATE, STUDENT_SECESSION_FL 
+		FROM TEST
+		JOIN STUDENT USING(STUDENT_NO)
+		WHERE TEST_NM = ?
+	</entry>
+	
+	<entry key="testPay">
+		UPDATE TEST SET
+		TEST_PAY = 'Y'
+		WHERE STUDENT_NO = ?
+		AND TEST_NM = ?
+	</entry>
+	
+	<entry key="testNoPay">
+		SELECT TEST_NM, TO_CHAR(TEST_DATE, 'YYYY"년" MM"월" DD"일"') TEST_DATE, STUDENT_NM
+		FROM TEST
+		JOIN STUDENT USING(STUDENT_NO)
+		WHERE TEST_PAY = 'N'
+		AND TEST_NM = ?
+	</entry>
+	
+</properties>

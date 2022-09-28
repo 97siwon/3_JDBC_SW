@@ -2,7 +2,7 @@ package edu.kh.jdbc.model.vo;
 
 public class TestVO {
 	private int testNo;
-	private String testTiltle;
+	private String testTitle;
 	private String testContent;
 	
 	// 기본 생성자
@@ -11,10 +11,10 @@ public class TestVO {
 	}
 	
 	// 매개변수 생성자(모든 필드 초기화)
-	public TestVO(int testNo, String testTiltle, String testContent) {
+	public TestVO(int testNo, String testTitle, String testContent) {
 		super();
 		this.testNo = testNo;
-		this.testTiltle = testTiltle;
+		this.testTitle = testTitle;
 		this.testContent = testContent;
 	}
 
@@ -27,12 +27,12 @@ public class TestVO {
 		this.testNo = testNo;
 	}
 
-	public String getTestTiltle() {
-		return testTiltle;
+	public String getTestTitle() {
+		return testTitle;
 	}
 
 	public void setTestTiltle(String testTiltle) {
-		this.testTiltle = testTiltle;
+		this.testTitle = testTiltle;
 	}
 
 	public String getTestContent() {
@@ -46,7 +46,7 @@ public class TestVO {
 	// toString() 오버라이딩
 	@Override
 	public String toString() {
-		return "TestVO [testNo=" + testNo + ", testTiltle=" + testTiltle + ", testContent=" + testContent + "]";
+		return "TestVO [testNo=" + testNo + ", testTiltle=" + testTitle + ", testContent=" + testContent + "]";
 	}
 	
 	

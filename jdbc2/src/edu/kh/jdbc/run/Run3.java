@@ -21,19 +21,20 @@ public class Run3 {
 		TestService service = new TestService();
 		
 		System.out.print("수정할 번호 입력 : ");
-		int num = sc.nextInt();
+		int testNo = sc.nextInt();
+		sc.nextLine();
 		
 		System.out.print("제목 : \n");
-		String input1 = sc.nextLine();
+		String testTitle = sc.nextLine();
 		
 		System.out.print("내용 : ");
-		String input2 = sc.nextLine();
+		String testContent = sc.nextLine();
 		
 		
-		TestVO vo1 = new TestVO(num, input1, input2);
+		TestVO vo = new TestVO(testNo, testTitle, testContent);
 		
 		try {
-			int result = service.insert(vo1);
+			int result = service.update(vo);
 			
 			if(result > 0) {
 				System.out.println("수정되었습니다.");
